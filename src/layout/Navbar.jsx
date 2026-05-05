@@ -1,11 +1,11 @@
 function Navbar() {
   return (
-    <div className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <div className="bg-white shadow-sm px-6 py-4 flex justify-between items-center">
       <h1 className="text-lg font-semibold text-gray-700">
-        Dashboard
+        Kubernetes Dashboard
       </h1>
 
-      <button className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded">
+      <button className="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md text-sm">
         Toggle Theme
       </button>
     </div>
