@@ -1,16 +1,82 @@
-# React + Vite
+# Kubernetes Dashboard Lite (Frontend Only)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a lightweight frontend simulation of a Kubernetes dashboard.
+It is built to demonstrate how cluster resources like pods can be visualized in a clean and simple UI.
 
-Currently, two official plugins are available:
+The goal of this project is not to connect to a real cluster, but to replicate the structure and behavior of tools like Kubernetes Dashboard or Headlamp from a frontend perspective.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Search pods by name
+* Filter pods by status (Running, Pending, Failed)
+* View basic pod details
+* Simple dashboard layout
+* Light and dark theme toggle
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+* React (Vite)
+* Tailwind CSS
+* React Router
+
+---
+
+## Project Structure
+
+```
+src/
+  components/
+  pages/
+  layout/
+  data/
+```
+
+---
+
+## Getting Started
+
+Clone the repository:
+
+```bash
+git clone https://github.com/shubhtrek/kube-lite-ui.git
+cd kube-lite-ui
+npm install
+npm run dev
+```
+
+---
+
+## Live Demo
+
+---------
+
+---
+
+## Screenshots
+* Dashboard
+<img width="1913" height="1096" alt="image" src="https://github.com/user-attachments/assets/9f34e286-4059-4206-9124-22ecec2c5e49" />
+
+* Pod Details
+<img width="1911" height="1101" alt="image" src="https://github.com/user-attachments/assets/4275bdcd-a3f4-4c47-9b2c-724cd0b2fd2c" />
+
+## Purpose
+
+This project was built to practice frontend development and understand how Kubernetes dashboards present data visually. It focuses on UI structure, state management, and user interaction.
+
+---
+
+## Future Improvements
+
+* Integrate with a real Kubernetes API
+* Add more resource types (Deployments, Services)
+* Improve UI polish and responsiveness
+
+---
+
+## Author
+
+Shubh Pingale
