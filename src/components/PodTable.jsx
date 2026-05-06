@@ -56,8 +56,13 @@ function PodTable({ pods }) {
             ))
           ) : (
             <tr>
-              <td colSpan="3" className="text-center p-6 text-gray-500">
-                No pods found
+              <td colSpan="3" className="p-10 text-center">
+                <div className="flex flex-col items-center text-gray-500">
+                  <p className="text-lg font-medium">No pods found</p>
+                  <p className="text-sm mt-1">
+                    Try adjusting your search or filter
+                  </p>
+                </div>
               </td>
             </tr>
           )}
