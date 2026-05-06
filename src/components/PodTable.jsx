@@ -1,22 +1,23 @@
 import { useNavigate } from "react-router-dom";
+import StatusBadge from "./StatusBadge";
 
 function PodTable({ pods }) {
   const navigate = useNavigate();
 
   return (
-    <div className="mt-6 bg-white shadow-md rounded-xl overflow-hidden">
-      <table className="w-full text-left">
+    <div className="mt-6 bg-white shadow-md rounded-xl overflow-hidden border border-gray-200">
+      <table className="w-full text-left border-collapse">
         
         {/* Header */}
-        <thead className="bg-gray-100">
+        <thead className="bg-gray-50 border-b">
           <tr>
-            <th className="p-4 text-sm font-semibold text-gray-600">
+            <th className="p-4 text-sm font-semibold text-gray-500 uppercase tracking-wide">
               Name
             </th>
-            <th className="p-4 text-sm font-semibold text-gray-600">
+            <th className="p-4 text-sm font-semibold text-gray-500 uppercase tracking-wide">
               Status
             </th>
-            <th className="p-4 text-sm font-semibold text-gray-600">
+            <th className="p-4 text-sm font-semibold text-gray-500 uppercase tracking-wide">
               Namespace
             </th>
           </tr>
@@ -29,34 +30,24 @@ function PodTable({ pods }) {
               <tr
                 key={index}
                 onClick={() => navigate(`/pod/${pod.name}`)}
-                className="border-t hover:bg-gray-50 cursor-pointer transition duration-150"
+                className="border-b last:border-none hover:bg-gray-50 cursor-pointer transition-all duration-150"
               >
                 <td className="p-4 text-gray-800 font-medium">
                   {pod.name}
                 </td>
 
                 <td className="p-4">
-                  <span
-                    className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      pod.status === "Running"
-                        ? "bg-green-100 text-green-700"
-                        : pod.status === "Pending"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                  >
-                    {pod.status}
-                  </span>
+                  <StatusBadge status={pod.status} />
                 </td>
 
-                <td className="p-4 text-gray-700">
+                <td className="p-4 text-gray-600">
                   {pod.namespace}
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="3" className="p-10 text-center">
+              <td colSpan="3" className="p-12 text-center">
                 <div className="flex flex-col items-center text-gray-500">
                   <p className="text-lg font-medium">No pods found</p>
                   <p className="text-sm mt-1">

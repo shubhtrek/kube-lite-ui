@@ -3,15 +3,18 @@ import Navbar from "./Navbar";
 
 function Layout({ children }) {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-gray-100 dark:bg-slate-900">
+
       <Sidebar />
 
-      <div className="flex-1 flex flex-col bg-gray-100">
+      <div className="flex-1 flex flex-col">
         <Navbar />
-        <main className="p-6 flex-1 overflow-y-auto">
+
+        <div className="p-6 overflow-auto flex-1 text-gray-800 dark:text-gray-200">
           {children}
-        </main>
+        </div>
       </div>
+
     </div>
   );
 }

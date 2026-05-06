@@ -1,28 +1,47 @@
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Navbar() {
-  const location = useLocation();
-  
-  // Logic to determine the page title
-  const getPageTitle = () => {
-    if (location.pathname === "/") return "Cluster Overview";
-    if (location.pathname.includes("/pod/")) return "Pod Details";
-    return "Kubernetes Dashboard";
-  };
+  const [dark, setDark] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
+
+  useEffect(() => {
+    const html = document.documentElement;
+
+    if (dark) {
+      html.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      html.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [dark]);
 
   return (
-    <div className="bg-white shadow-sm px-6 py-4 flex justify-between items-center border-b border-gray-200">
-      <h1 className="text-lg font-semibold text-gray-800">
-        {getPageTitle()}
-      </h1>
-      <div className="flex items-center gap-4">
-        <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded border border-green-200 font-medium">
+    <div className="bg-white dark:bg-slate-800 border-b px-6 py-4 flex justify-between items-center">
+
+      <div>
+        <h2 className="font-semibold text-gray-800 dark:text-white">
+          Cluster Overview
+        </h2>
+        <p className="text-sm text-gray-500 dark:text-gray-300">
+          Real-time status of your containerized workloads
+        </p>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <span className="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-full">
           Cluster: minikube
         </span>
-        <button className="bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-md text-sm transition-colors">
-          Theme
+
+        <button
+          onClick={() => setDark(!dark)}
+          className="px-3 py-1 bg-gray-200 dark:bg-slate-700 rounded text-sm text-black dark:text-white"
+        >
+          Toggle Theme
         </button>
       </div>
+
     </div>
   );
 }

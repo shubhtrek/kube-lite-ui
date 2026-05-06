@@ -14,7 +14,7 @@ function PodDetails() {
       const foundPod = pods.find((p) => p.name === name);
       setPod(foundPod);
       setLoading(false);
-    }, 1000);
+    }, 800);
   }, [name]);
 
   if (loading) {
@@ -45,7 +45,9 @@ function PodDetails() {
   }
 
   return (
-    <div>
+    <div className="animate-fadeIn p-8 max-w-5xl mx-auto">
+      
+      {/* Back */}
       <button
         onClick={() => navigate(-1)}
         className="mb-4 text-sm text-blue-600 hover:underline"
@@ -53,11 +55,14 @@ function PodDetails() {
         ← Back
       </button>
 
+      {/* Title */}
       <h1 className="text-2xl font-bold text-gray-800">
         Pod Details
       </h1>
 
+      {/* Info */}
       <div className="mt-6 bg-white shadow-md rounded-xl p-6 grid grid-cols-2 gap-6">
+        
         <div>
           <p className="text-gray-500 text-sm">Name</p>
           <p className="font-medium text-gray-800">{pod.name}</p>
@@ -84,17 +89,31 @@ function PodDetails() {
         </div>
       </div>
 
+      {/* Logs */}
       <div className="mt-6 bg-white shadow-md rounded-xl p-4">
-        <h2 className="font-semibold mb-3 text-gray-700">
-          Logs
-        </h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="font-semibold text-gray-700">
+            Container Logs
+          </h2>
+          <span className="text-xs text-gray-400">
+            Last updated: just now
+          </span>
+        </div>
 
-        <pre className="bg-black text-green-400 p-4 rounded-md text-sm overflow-auto">
+        <div className="bg-black text-green-400 p-4 rounded-md text-sm h-64 overflow-y-auto font-mono">
 {`[INFO] Starting container...
-[INFO] Loading configuration...
-[SUCCESS] Pod is running successfully.`}
-        </pre>
+[INFO] Pulling image...
+[SUCCESS] Image pulled successfully
+[INFO] Initializing services...
+[INFO] Connecting to database...
+[SUCCESS] Connection established
+[INFO] Starting application server...
+[SUCCESS] Server running on port 8080
+[INFO] Health checks passed
+[SUCCESS] Pod is running successfully`}
+        </div>
       </div>
+
     </div>
   );
 }
