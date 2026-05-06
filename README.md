@@ -52,7 +52,7 @@ npm run dev
 
 ## Live Demo
 
-kube-lite-ui.vercel.app
+https://kube-lite-ui.vercel.app
 
 ---
 
