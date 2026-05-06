@@ -1,83 +1,100 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { pods } from "../data/pods";
-import LogTerminal from "../components/LogTerminal";
+import { useEffect, useState } from "react";
 
 function PodDetails() {
   const { name } = useParams();
   const navigate = useNavigate();
 
-  // Find the specific pod data using the URL parameter
-  const pod = pods.find((p) => p.name === name);
+  const [pod, setPod] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Safety check if the pod doesn't exist
+  useEffect(() => {
+    setTimeout(() => {
+      const foundPod = pods.find((p) => p.name === name);
+      setPod(foundPod);
+      setLoading(false);
+    }, 1000);
+  }, [name]);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-700 mb-3"></div>
+        <p>Loading pod details...</p>
+      </div>
+    );
+  }
+
   if (!pod) {
     return (
-      <div className="p-6 text-center">
-        <h2 className="text-xl font-bold text-gray-800">Pod not found</h2>
-        <button 
-          onClick={() => navigate("/")} 
-          className="mt-4 text-blue-600 hover:underline"
+      <div className="flex flex-col items-center justify-center mt-20 text-gray-500">
+        <p className="text-xl font-semibold">Pod not found</p>
+        <p className="text-sm mt-2">
+          The requested pod does not exist
+        </p>
+
+        <button
+          onClick={() => navigate("/")}
+          className="mt-4 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
         >
-          Back to Dashboard
+          Go Back
         </button>
       </div>
     );
   }
 
   return (
-    <div className="max-w-5xl">
-      {/* 1. Header & Back Button */}
-      <div className="flex items-center gap-4 mb-6">
-        <button 
-          onClick={() => navigate("/")}
-          className="p-2 hover:bg-gray-200 rounded-full transition-colors"
-          title="Back to Pods"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-        </button>
+    <div>
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-4 text-sm text-blue-600 hover:underline"
+      >
+        ← Back
+      </button>
+
+      <h1 className="text-2xl font-bold text-gray-800">
+        Pod Details
+      </h1>
+
+      <div className="mt-6 bg-white shadow-md rounded-xl p-6 grid grid-cols-2 gap-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">{pod.name}</h1>
-          <p className="text-sm text-gray-500">Namespace: {pod.namespace}</p>
+          <p className="text-gray-500 text-sm">Name</p>
+          <p className="font-medium text-gray-800">{pod.name}</p>
         </div>
-        <div className="ml-auto">
-          <span className={`px-4 py-1 rounded-full text-sm font-bold ${
-            pod.status === "Running" ? "bg-green-100 text-green-700" : 
-            pod.status === "Pending" ? "bg-yellow-100 text-yellow-700" : 
-            "bg-red-100 text-red-700"
-          }`}>
+
+        <div>
+          <p className="text-gray-500 text-sm">Namespace</p>
+          <p className="font-medium text-gray-800">{pod.namespace}</p>
+        </div>
+
+        <div>
+          <p className="text-gray-500 text-sm">Status</p>
+          <p
+            className={`font-medium ${
+              pod.status === "Running"
+                ? "text-green-600"
+                : pod.status === "Pending"
+                ? "text-yellow-600"
+                : "text-red-600"
+            }`}
+          >
             {pod.status}
-          </span>
-        </div>
-      </div>
-
-      {/* 2. Metadata Information Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-        <div className="border-r border-gray-100 last:border-0 pr-4">
-          <p className="text-xs text-gray-400 uppercase font-semibold">Image</p>
-          <p className="font-mono text-xs bg-gray-100 p-1 mt-1 rounded text-gray-700 break-all">
-            {pod.image}
-          </p>
-        </div>
-        <div className="border-r border-gray-100 last:border-0 px-4">
-          <p className="text-xs text-gray-400 uppercase font-semibold">Node</p>
-          <p className="font-medium text-gray-800">{pod.node}</p>
-        </div>
-        <div className="border-r border-gray-100 last:border-0 px-4">
-          <p className="text-xs text-gray-400 uppercase font-semibold">IP Address</p>
-          <p className="font-medium text-gray-800 font-mono text-sm">{pod.ip}</p>
-        </div>
-        <div className="px-4">
-          <p className="text-xs text-gray-400 uppercase font-semibold">Start Time</p>
-          <p className="font-medium text-gray-800 text-sm">
-            {pod.startTime !== "N/A" ? new Date(pod.startTime).toLocaleString() : "N/A"}
           </p>
         </div>
       </div>
 
-      {/* 3. Interactive Log Terminal */}
-      <LogTerminal podName={pod.name} />
+      <div className="mt-6 bg-white shadow-md rounded-xl p-4">
+        <h2 className="font-semibold mb-3 text-gray-700">
+          Logs
+        </h2>
+
+        <pre className="bg-black text-green-400 p-4 rounded-md text-sm overflow-auto">
+{`[INFO] Starting container...
+[INFO] Loading configuration...
+[SUCCESS] Pod is running successfully.`}
+        </pre>
+      </div>
     </div>
   );
 }
