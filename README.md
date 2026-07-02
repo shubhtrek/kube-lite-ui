@@ -50,12 +50,6 @@ npm run dev
 
 ---
 
-## Live Demo
-
-https://kube-lite-ui.vercel.app
-
----
-
 ## Screenshots
 * Dashboard
 <img width="1913" height="1096" alt="image" src="https://github.com/user-attachments/assets/9f34e286-4059-4206-9124-22ecec2c5e49" />
